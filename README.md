@@ -14,6 +14,9 @@ To see the list of the databases
 >show dbs;
 To create a database named as locationdb
 > use locationdb;
+ to drop database use 
+>db.dropDatabase()
+
 To insert data into a collection called restaurants
 
 >db.restaurants.insert( { name: "Kimono", loc: { type: "Point",coordinates: [ 52.370451, 5.217497] } } );
