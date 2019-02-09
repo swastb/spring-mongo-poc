@@ -1,0 +1,86 @@
+{
+  "statusCode": 200,
+  "trucks": {
+    "_links": {
+      "base": "http://localhost:8080/api/v1.0/foodtruck"
+    },
+    "businesses": [
+      {
+        "id": "LABURXVZY_89745664",
+        "eventId": "Inday12erdgfh",
+        "name": "LA Burritos",
+        "image_url": "https://images.foodtruck.com/imgcvbfggf",
+        "is_closed": false,
+        "url": "",
+        "review_count": 170,
+        "rating": 4,
+        "coordinates": {
+          "latitude": 37.3676143,
+          "longitude": -122.0225156
+        },
+        "location": {
+          "address1": "5353 San Vicente Blvd",
+          "address2": "",
+          "address3": "",
+          "city": "Los Angeles",
+          "zip_code": "90019",
+          "country": "US",
+          "state": "CA",
+          "display_address": [
+            "5353 San Vicente Blvd",
+            "Los Angeles, CA 90019"
+          ]
+        },
+        "phone": "",
+        "display_phone": "",
+        "distance": 726.874826268,
+        "links": [
+          {
+            "href": "LABURXVZY_89745664/menus/",
+            "rel": "food items",
+            "type": "GET",
+            "_comments": "Get food items associated with the trucks"
+          }
+        ]
+      },
+      {
+        "id": "LABURXVZY_89745665",
+        "eventId": "Inday12erdgfl",
+        "name": "LA Burger",
+        "image_url": "https://images.foodtruck.com/imgcvbfggf",
+        "is_closed": false,
+        "url": "",
+        "review_count": 15,
+        "rating": 3,
+        "coordinates": {
+          "latitude": 37.3676143,
+          "longitude": -122.0225156
+        },
+        "location": {
+          "address1": "5354 San Vicente Blvd",
+          "address2": "",
+          "address3": "",
+          "city": "Los Angeles",
+          "zip_code": "90019",
+          "country": "US",
+          "state": "CA",
+          "display_address": [
+            "5353 San Vicente Blvd",
+            "Los Angeles, CA 90019"
+          ]
+        },
+        "phone": "",
+        "display_phone": "",
+        "distance": 726.874826268,
+        "links": [
+          {
+            "href": "LABURXVZY_89745664/menus/",
+            "rel": "food items",
+            "type": "GET",
+            "_comments": "Get food items associated with the trucks"
+          }
+        ]
+      }
+    ]
+  }
+}
