@@ -24,10 +24,10 @@ import com.example.mongodbgeopoc.repository.LocationRepository;
 import com.example.mongodbgeopoc.repository.domain.BusinessEntity;
 import com.example.mongodbgeopoc.repository.domain.LocationEntity;
 
-@RestController
-@RequestMapping("location")
+/*@RestController
+@RequestMapping("location")*/
 public class LocationResourceController {
-	@Autowired
+	/*@Autowired
 	private LocationRepository repository;
 
 	@Autowired
@@ -43,11 +43,11 @@ public class LocationResourceController {
 				new Distance(distance, Metrics.KILOMETERS));
 
 		// }
-		/*
+		
 		 * else { return this.repository.findBySubjectAndLocationNear(subjects,
 		 * new Point(Double.valueOf(latitude), Double.valueOf(longitude)), new
 		 * Distance(distance, Metrics.KILOMETERS)); }
-		 */
+		 
 
 	}
 
@@ -64,5 +64,5 @@ public class LocationResourceController {
 			entities.add(entry);
 		}
 		this.repository.saveAll(entities);
-	}
+	}*/
 }

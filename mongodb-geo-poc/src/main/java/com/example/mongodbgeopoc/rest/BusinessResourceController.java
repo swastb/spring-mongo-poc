@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResult;
+import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.http.HttpStatus;
@@ -38,12 +40,13 @@ public class BusinessResourceController {
 		// if (subjects == null || subjects.length() < 1) {
 
 		List<BusinessVO> businessVOList = new ArrayList<BusinessVO>();
-		List<BusinessEntity> businessEntityList = this.businessRepository.findByLocationNear(
+		GeoResults<BusinessEntity> businessEntityList = this.businessRepository.findByLocationNear(
 				new Point(Double.valueOf(longitude), Double.valueOf(latitude)),
 				new Distance(distance, Metrics.KILOMETERS));
 
-		for (BusinessEntity business : businessEntityList) {
-			BusinessVO bVO = BusinessEntityTransformer.buildBusinessVO(business);
+		for (GeoResult<BusinessEntity> business : businessEntityList) {
+			BusinessVO bVO = BusinessEntityTransformer.buildBusinessVO(business.getContent());
+			bVO.setDistance(business.getDistance().getValue());
 			businessVOList.add(bVO);
 		}
 		return businessVOList;
