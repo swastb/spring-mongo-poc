@@ -15,7 +15,7 @@ public class BusinessEntityTransformer {
 		BusinessEntity businessEntity = new BusinessEntity();
 
 		if (businessvo != null) {
-			businessEntity.setBusinessId(businessvo.getId());
+			businessEntity.setBusinessId(businessvo.getGid());
 		}
 		if (businessvo.getEventId() != null) {
 			businessEntity.setEventId(businessvo.getEventId());
@@ -56,7 +56,7 @@ public class BusinessEntityTransformer {
 		BusinessVO businessVO = new BusinessVO();
 
 		if (businessDBEntity != null) {
-			businessVO.setId(businessDBEntity.getBusinessId());
+			businessVO.setGid(businessDBEntity.getBusinessId());
 		}
 		if (businessDBEntity.getEventId() != null) {
 			businessVO.setEventId(businessDBEntity.getEventId());
@@ -86,7 +86,7 @@ public class BusinessEntityTransformer {
 			locationVOEntry.setLatitude(String.valueOf(locationPoint.getX()));
 			locationVOEntry.setLongitude(String.valueOf(locationPoint.getY()));
 			businessVO.setCoordinates(locationVOEntry);
-			
+
 		}
 		if (businessDBEntity.getLocationData() != null) {
 			LocationVO location = LocationEntityTransformer.buildLocationVO(businessDBEntity.getLocationData());

@@ -2,11 +2,15 @@ package com.example.mongodbgeopoc.model;
 
 import java.io.Serializable;
 
-public class BusinessVO implements Serializable {
+import org.springframework.hateoas.ResourceSupport;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class BusinessVO extends ResourceSupport implements Serializable {
 
 	private static final long serialVersionUID = -8494501678402237574L;
-	private String id;
+	@JsonProperty("id")
+	private String gid;
 	private String eventId;
 	private String name;
 	private String image_url;
@@ -20,12 +24,12 @@ public class BusinessVO implements Serializable {
 	private String display_phone;
 	private double distance;
 
-	public String getId() {
-		return id;
+	public String getGid() {
+		return gid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setGid(String gid) {
+		this.gid = gid;
 	}
 
 	public String getEventId() {
@@ -123,5 +127,5 @@ public class BusinessVO implements Serializable {
 	public void setDistance(double distance) {
 		this.distance = distance;
 	}
-	
+
 }

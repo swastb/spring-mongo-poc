@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trucks implements Serializable {
+import org.springframework.hateoas.ResourceSupport;
+
+public class Trucks extends ResourceSupport implements Serializable {
 
 	private static final long serialVersionUID = -208450163190261308L;
 

@@ -9,36 +9,40 @@ import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.mongodbgeopoc.builder.BusinessEntityTransformer;
 import com.example.mongodbgeopoc.model.BusinessVO;
+import com.example.mongodbgeopoc.model.TruckResponse;
+import com.example.mongodbgeopoc.model.Trucks;
+import com.example.mongodbgeopoc.model.common.LinkCommentConstants;
+import com.example.mongodbgeopoc.model.common.SuperLink;
 import com.example.mongodbgeopoc.repository.BusinessRepository;
-import com.example.mongodbgeopoc.repository.LocationRepository;
 import com.example.mongodbgeopoc.repository.domain.BusinessEntity;
 
 @RestController
-@RequestMapping("business")
+@RequestMapping("api/v1.0/foodtruck")
 public class BusinessResourceController {
-	@Autowired
-	private LocationRepository repository;
 
 	@Autowired
 	private BusinessRepository businessRepository;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public final List<BusinessVO> getLocations(@RequestParam("lat") String latitude,
-			@RequestParam("long") String longitude, @RequestParam("d") double distance,
-			@RequestParam(value = "s", required = false) String subjects) {
+	public final ResponseEntity<TruckResponse> getLocations(@RequestParam("lat") String latitude,
+			@RequestParam("long") String longitude, @RequestParam("distance") double distance) {
 
 		// if (subjects == null || subjects.length() < 1) {
 
+		Trucks trucks = new Trucks();
 		List<BusinessVO> businessVOList = new ArrayList<BusinessVO>();
 		GeoResults<BusinessEntity> businessEntityList = this.businessRepository.findByLocationNear(
 				new Point(Double.valueOf(longitude), Double.valueOf(latitude)),
@@ -47,16 +51,18 @@ public class BusinessResourceController {
 		for (GeoResult<BusinessEntity> business : businessEntityList) {
 			BusinessVO bVO = BusinessEntityTransformer.buildBusinessVO(business.getContent());
 			bVO.setDistance(business.getDistance().getValue());
-			businessVOList.add(bVO);
-		}
-		return businessVOList;
+			final String menuUriString = bVO.getGid() + "/menus/";
 
-		// }
-		/*
-		 * else { return this.repository.findBySubjectAndLocationNear(subjects,
-		 * new Point(Double.valueOf(latitude), Double.valueOf(longitude)), new
-		 * Distance(distance, Metrics.KILOMETERS)); }
-		 */
+			SuperLink link = new SuperLink(new Link(menuUriString, "food items"), LinkCommentConstants.MENU_COMMENT,
+					"GET");
+			bVO.add(link);
+			businessVOList.add(bVO);
+
+		}
+		trucks.setBusinesses(businessVOList);
+		final String uriString = ServletUriComponentsBuilder.fromCurrentRequest().build().toUriString();
+		trucks.add(new Link(uriString, "base"));
+		return ResponseEntity.ok(new TruckResponse(trucks, 200));
 
 	}
 
